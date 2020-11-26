@@ -124,7 +124,132 @@ end AI_0V_10V;
     signal AI_0_10_Voltage_Input    : real_vector(0 to c_NUM_of_AI_0_10-1)  := (others => 0.0);
                                               
 
+ -----------------------------------------------------------------------------------------------------------
+ ----------------------------------------------- PROCEDURES ------------------------------------------------
+ -----------------------------------------------------------------------------------------------------------
+    
+    
 
+   --/*******************************************************************************
+   --*
+   --* Procedure name :  Calculate_CRC32
+   --*
+   --* Description    :  This procedure will calculate CRC32
+   --*                   
+   --*******************************************************************************/
+   
+  function Calculate_CRC32 (
+                            CRC : in std_ulogic_vector
+                            ) return std_ulogic_vector is
+        variable CRC_i : std_ulogic_vector(31 downto 0);
+        variable initialw :  std_ulogic_vector (0 to 31) := x"FFFFFFFF";
+        variable polinomial : std_ulogic_vector (0 to 31) := x"04C11DB7";
+        variable CRC1 :  std_ulogic_vector(31 downto 0);
+        variable CRC2 :  std_ulogic_vector(0 to 8159) := CRC;
+       
+    begin
+       
+    CRC_i := x"FFFF_FFFF";
+       
+    for i in 0 to CRC'LENGTH-1 loop
+      CRC1:=CRC_i;
+      CRC1 := CRC1(CRC1'LENGTH-2 downto 0) & '0';
+
+      if((CRC2(0) XOR CRC_i(CRC_i'LEFT)) = '1') then
+        CRC1 := CRC1 XOR polinomial;
+      end if;
+      CRC_i:=CRC1;
+                   
+      CRC2 := CRC2(1 to CRC2'RIGHT) & CRC2(0);
+
+    end loop;
+
+        CRC_i := CRC_i XOR x"FFFF_FFFF";
+        return CRC_i;
+       
+  end function Calculate_CRC32;
+        
+    
+
+   --/*******************************************************************************
+   --*
+   --* Procedure name :  Calculate_CRC16
+   --*
+   --* Description    :  This procedure will calculate CRC16
+   --*                   
+   --*******************************************************************************/
+   
+  function Calculate_CRC16 (
+                            CRC : in std_ulogic_vector
+                            ) return std_ulogic_vector is
+        variable CRC_i : std_ulogic_vector(15 downto 0);
+        variable initialw :  std_ulogic_vector (0 to 15) := x"FFFF";
+        variable polinomial : std_ulogic_vector (0 to 15) := x"1021";
+        variable CRC1 :  std_ulogic_vector(15 downto 0);
+        variable CRC2 :  std_ulogic_vector(0 to 223) := CRC;
+       
+    begin
+       
+    CRC_i := x"FFFF";
+       
+    for i in 0 to CRC'LENGTH-1 loop
+      CRC1:=CRC_i;
+      CRC1 := CRC1(CRC1'LENGTH-2 downto 0) & '0';
+
+      if((CRC2(0) XOR CRC_i(CRC_i'LEFT)) = '1') then
+        CRC1 := CRC1 XOR polinomial;
+      end if;
+      CRC_i:=CRC1;
+                   
+      CRC2 := CRC2(1 to CRC2'RIGHT) & CRC2(0);
+
+    end loop;
+
+    CRC_i := CRC_i;
+    return CRC_i;
+       
+  end function Calculate_CRC16;
+  
+  
+
+   --/*******************************************************************************
+   --*
+   --* Procedure name :  Calculate_EVENT_CRC16
+   --*
+   --* Description    :  This procedure will calculate EVENT CRC16
+   --*                   
+   --*******************************************************************************/
+   
+  function Calculate_EVENT_CRC16 (
+                            CRC : in std_ulogic_vector
+                            ) return std_ulogic_vector is
+        variable CRC_i : std_ulogic_vector(15 downto 0);
+        variable initialw :  std_ulogic_vector (0 to 15) := x"FFFF";
+        variable polinomial : std_ulogic_vector (0 to 15) := x"1021";
+        variable CRC1 :  std_ulogic_vector(15 downto 0);
+        variable CRC2 :  std_ulogic_vector(0 to 239) := CRC;
+       
+    begin
+       
+    CRC_i := x"FFFF";
+       
+    for i in 0 to CRC'LENGTH-1 loop
+      CRC1:=CRC_i;
+      CRC1 := CRC1(CRC1'LENGTH-2 downto 0) & '0';
+
+      if((CRC2(0) XOR CRC_i(CRC_i'LEFT)) = '1') then
+        CRC1 := CRC1 XOR polinomial;
+      end if;
+      CRC_i:=CRC1;
+                   
+      CRC2 := CRC2(1 to CRC2'RIGHT) & CRC2(0);
+
+    end loop;
+
+    CRC_i := CRC_i;
+    return CRC_i;
+       
+  end function Calculate_EVENT_CRC16;
     
    --/*******************************************************************************
    --*
