@@ -567,7 +567,7 @@ end AI_0V_10V;
 	    testResult    <= '1';
 	    for i in 0 to c_NUM_of_AI -1 loop
 	      v_AI_data(i).CMD.VOLTAGE_CMD := 5.0;
-        p_select_AI_cmd_voltage(0, AI_Voltage_Input, i, v_AI_data);
+        p_select_AI_cmd_voltage(0, AI_0_10_Voltage_Input, i, v_AI_data(0 to c_NUM_of_AI_0_10 -1));
 	    end loop;  
     
       --------------------------------------------------------
@@ -587,7 +587,7 @@ end AI_0V_10V;
 	    for val_idx in v_AIs_val'RANGE loop -- 0 TO 2
 	      for i in v_AIs_val(0)'RANGE loop  -- 0 TO 7
 	        v_AI_data(i).CMD.VOLTAGE_CMD := v_AIs_val(val_idx)(i);
-          p_select_AI_cmd_voltage(0, AI_Voltage_Input, i, v_AI_data);
+          p_select_AI_cmd_voltage(0, AI_0_10_Voltage_Input, i, v_AI_data(0 to c_NUM_of_AI_0_10 -1));
 	    	  wait for 3000 us;
             --------------------------------------------------------
             ----       CHECK VOLTAGE, VOLTAGE FS AND CRC        ----
@@ -632,7 +632,7 @@ end AI_0V_10V;
       --------------------------------------------------------
       for i in 0 to c_NUM_of_AI -1 loop
 	      v_AI_data(i).CMD.VOLTAGE_CMD := 5.0;
-        p_select_AI_cmd_voltage(0, AI_Voltage_Input, i, v_AI_data);
+        p_select_AI_cmd_voltage(0, AI_0_10_Voltage_Input, i, v_AI_data(0 to c_NUM_of_AI_0_10 -1));
 	    end loop;  
     
       --------------------------------------------------------
@@ -659,7 +659,7 @@ end AI_0V_10V;
       --------------------------------------------------------
       ------------ SET REF_VOLT TO INVALID VALUE -------------
       --------------------------------------------------------
-      ADS7953_CH0(0) <= 4.0;
+      ADS7953_CH0(0)  <= 4.0;
       ADS7953_CH14(0) <= 4.0;
     
       --------------------------------------------------------
@@ -724,7 +724,7 @@ end AI_0V_10V;
       --------------------------------------------------------
 	    for i in 0 to c_NUM_of_AI -1 loop
 	      v_AI_data(i).CMD.VOLTAGE_CMD := 5.0;
-        p_select_AI_cmd_voltage(0, AI_Voltage_Input, i, v_AI_data);
+        p_select_AI_cmd_voltage(0, AI_0_10_Voltage_Input, i, v_AI_data(0 to c_NUM_of_AI_0_10 -1));
 	    end loop;  
     
       --------------------------------------------------------
